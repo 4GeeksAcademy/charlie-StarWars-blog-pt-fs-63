@@ -1,15 +1,23 @@
 import React from "react";
-import rigoImage from "../../img/rigo-baby.jpg";
-import "../../styles/home.css";
+import { Card } from "../component/card";
+import { Context } from "../store/appContext";
+import { useContext, useState } from "react";
 
-export const Home = () => (
-	<div className="text-center mt-5">
-		<h1>Hello Rigo!</h1>
-		<p>
-			<img src={rigoImage} />
-		</p>
-		<a href="#" className="btn btn-success">
-			If you see this green button, bootstrap is working
-		</a>
-	</div>
-);
+
+export const Home = () => {
+
+	const { actions, store } = useContext(Context)
+	const peopleArray = Object.values(store.peopleData || {})
+
+	console.log(peopleArray)
+
+	return (
+		<div className="mt-5 d-flex overflow-x-auto">
+			{peopleArray.map((el, index) => (
+				<Card key={index} name={el.name} gender={el.gender} hairColor={el.hair_color}
+					eyeColor={el.eye_color} />
+			))}
+		</div>
+	)
+}
+
