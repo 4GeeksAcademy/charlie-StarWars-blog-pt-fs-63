@@ -1,3 +1,45 @@
-body{
-    background-color: rgb(20, 20, 20);
+body {
+    background-image:url('https://images.unsplash.com/photo-1518066000714-58c45f1a2c0a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+    background-size: contain;
+}
+
+body::-webkit-scrollbar-track
+{
+	border-radius: 20px;
+	background-color: rgb(20, 20, 20);
+    opacity: 0;
+}
+
+body::-webkit-scrollbar
+{
+	background-color: rgb(20, 20, 20);
+    opacity: 0;
+}
+
+body::-webkit-scrollbar-thumb
+{
+    border: 1px solid ;
+    border-radius: 100px;
+    border-color: #494364;
+    background-color: #494364;
+    background-clip: content-box;
+}
+
+.scroll::-webkit-scrollbar-track
+{
+	border-radius: 20px;
+	background-color: rgb(20, 20, 20);
+}
+
+.scroll::-webkit-scrollbar
+{
+	background-color: rgb(20, 20, 20);
+}
+
+.scroll::-webkit-scrollbar-thumb
+{
+    border: 5px solid transparent;
+    border-radius: 100px;
+    background-color: #494364;
+    background-clip: content-box;
 }

@@ -48,29 +48,65 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			///////////////////////////////////////////////////////////////////////////////////////
 			getPlanets: async () => {
-				const planetsReq = await fetch(`https://www.swapi.tech/api/planets`)
-				const planetsRes = await planetsReq.json().then(res => res.results)
-				for (const planet of planetsRes) {
-					getActions().getPlanet(planet.uid)
+				const planets = localStorage.getItem("planets")
+				if (planets) {
+					for (const planet of JSON.parse(planets)) {
+						getActions().getPlanet(planet.uid)
+					}
+					setStore({ planets: JSON.parse(planets) })
+				} else {
+					const planetsReq = await fetch(`https://www.swapi.tech/api/planets`)
+					const planetsRes = await planetsReq.json().then(res => res.results)
+					for (const planet of planetsRes) {
+						await getActions().getPlanet(planet.uid)
+					}
+					setStore({ planets: planetsRes })
+					localStorage.setItem("planets", JSON.stringify(planetsRes))
 				}
-
-				setStore({ planets: planetsRes })
 			},
 			getPlanet: async (id = 1) => {
-				const planetReq = await fetch(`https://www.swapi.tech/api/planets/${id}`)
-				const planetRes = await planetReq.json().then(res => res.result.properties)
+				const planet = localStorage.getItem(`planet-${id}`)
+				const planetsData = getStore().planetsData
+				if (planet) {
+					setStore({ planetsData: { ...planetsData, [id]: JSON.parse(planet) } })
+				} else {
+					const planetReq = await fetch(`https://www.swapi.tech/api/planets/${id}`)
+					const planetRes = await planetReq.json().then(res => res.result.properties)
 
-				const planetData = getStore().planetData
-				planetData ? setStore({ planetData: { ...planetData, [id]: planetRes } }) : setStore({ planetData: { [id]: planetRes } })
-				//console.log(getStore().planetData)
+					setStore({ planetsData: { ...planetsData, [id]: planetRes } })
+					localStorage.setItem(`planet-${id}`, JSON.stringify(planetRes))
+				}
 			},
 			///////////////////////////////////////////////////////////////////////////////////////
 			getVehicles: async () => {
-				const vehiclesReq = await fetch(`https://www.swapi.tech/api/vehicles`)
-				const vehiclesRes = await vehiclesReq.json()
-				setStore({ vehicles: vehiclesRes })
+				const vehicles = localStorage.getItem("vehicles")
+				if (vehicles) {
+					for (const vehicle of JSON.parse(vehicles)) {
+						getActions().getVehicle(vehicle.uid)
+					}
+					setStore({ vehicles: JSON.parse(vehicles) })
+				} else {
+					const vehiclesReq = await fetch(`https://www.swapi.tech/api/vehicles`)
+					const vehiclesRes = await vehiclesReq.json().then(res => res.results)
+					for (const vehicle of vehiclesRes) {
+						await getActions().getVehicle(vehicle.uid)
+					}
+					setStore({ vehicles: vehiclesRes })
+					localStorage.setItem("vehicles", JSON.stringify(vehiclesRes))
+				}
+			},
+			getVehicle: async (id = 4) => {
+				const vehicle = localStorage.getItem(`vehicle-${id}`)
+				const vehiclesData = getStore().vehiclesData
+				if (vehicle) {
+					setStore({ vehiclesData: { ...vehiclesData, [id]: JSON.parse(vehicle) } })
+				} else {
+					const vehicleReq = await fetch(`https://www.swapi.tech/api/vehicles/${id}`)
+					const vehicleRes = await vehicleReq.json().then(res => res.result.properties)
 
-				console.log(getStore().vehicles)
+					setStore({ vehiclesData: { ...vehiclesData, [id]: vehicleRes } })
+					localStorage.setItem(`vehicle-${id}`, JSON.stringify(vehicleRes))
+				}
 			},
 		}
 	};
