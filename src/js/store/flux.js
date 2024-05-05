@@ -15,7 +15,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 			]
 		},
 		actions: {
-			// Use getActions to call a function within a fuction
 			getPeople: async () => {
 				const people = localStorage.getItem("people")
 				if (people) {
@@ -108,6 +107,22 @@ const getState = ({ getStore, getActions, setStore }) => {
 					localStorage.setItem(`vehicle-${id}`, JSON.stringify(vehicleRes))
 				}
 			},
+			///////////////////////////////////////////////////////////////////////////////////////
+			getFavorites: () => {
+				const favorites = localStorage.getItem(`favorites`)
+				favorites && setStore({ favorites: JSON.parse([favorites]) })
+			},
+			toFavorites: async (item) => {
+				const favArray = getStore().favorites || []
+				await setStore(!favArray.includes(item) && { favorites: [...favArray, item] })
+				localStorage.setItem(`favorites`, JSON.stringify(getStore().favorites))
+			},
+			deleteFavorites: (item) => {
+				const favArray = getStore().favorites || []
+				const filteredFav = favArray.filter(el => el !== item)
+				setStore({ favorites: [...filteredFav] })
+				localStorage.setItem(`favorites`, JSON.stringify(getStore().favorites))
+			}
 		}
 	};
 };

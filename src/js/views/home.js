@@ -17,29 +17,37 @@ export const Home = () => {
 
 	const handleGetDetail = async (id) => {
 		const personId = await peopleArray.indexOf(peopleArray[id])
-		navigate(`/detail/${personId}`)
+		navigate(`/personDetail/${personId}`)
 	}
 
 	console.log(peopleArray)
+	console.log(store.favorites)
+
+	const handleAddFavorite = (entity) => {
+		actions.toFavorites(entity)
+	}
+
 
 	return (
 		<div className="container">
 			<div className="scroll mt-5 d-flex overflow-x-auto">
 				{peopleArray.map((el, index) => (
 					<PersonCard key={index} name={el.name} gender={el.gender} hairColor={el.hair_color}
-						eyeColor={el.eye_color}
-						onClick={() => handleGetDetail(index)}
-					/>
+						eyeColor={el.eye_color} onClick={() => handleGetDetail(index)}
+						toFavorites={() => handleAddFavorite(el, el.name)} />
 				))}
 			</div>
 			<div className="scroll mt-5 d-flex overflow-x-auto">
 				{planetsArray.map((el, index) => (
-					<PlanetCard key={index} name={el.name} population={el.population} terrain={el.terrain} />
+					<PlanetCard key={index} name={el.name} population={el.population} terrain={el.terrain}
+						toFavorites={() => handleAddFavorite(el, el.name)} />
 				))}
 			</div>
 			<div className="scroll mt-5 d-flex overflow-x-auto mb-5">
 				{vehiclesArray.map((el, index) => (
-					<VehicleCard key={index} name={el.name} cost={el.cost_in_credits} Speed={el.max_atmosphering_speed} />
+					<VehicleCard key={index} name={el.name} cost={el.cost_in_credits}
+						Speed={el.max_atmosphering_speed}
+						toFavorites={() => handleAddFavorite(el, el.name)} />
 				))}
 			</div>
 		</div>

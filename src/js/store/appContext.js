@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import getState from "./flux.js";
 
+
 // Don't change, here is where we initialize our context, by default it's just going to be null.
 export const Context = React.createContext(null);
 
@@ -25,6 +26,7 @@ const injectContext = PassedComponent => {
 			state.actions.getPeople()
 			state.actions.getPlanets()
 			state.actions.getVehicles()
+			state.actions.getFavorites()
 
 			/**
 			 * EDIT THIS!
@@ -42,7 +44,9 @@ const injectContext = PassedComponent => {
 		// on the state of this component
 		return (
 			<Context.Provider value={state}>
+
 				<PassedComponent {...props} />
+
 			</Context.Provider>
 		);
 	};
