@@ -3,8 +3,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 
 import { Home } from "./views/home";
-import { Demo } from "./views/demo";
-import { Single } from "./views/single";
 import { PersonDetail } from "./views/personDetail";
 import { PlanetDetail } from "./views/planetDetail";
 import { VehicleDetail } from "./views/vehicleDetail";
@@ -21,14 +19,12 @@ const Layout = () => {
 	const basename = process.env.BASENAME || "";
 
 	return (
-		<div style={{ backgroundImage: `url(${background})`, backgroundSize: "contain" }}>
+		<div style={{ backgroundImage: `url(${background})`, backgroundSize: "cover" }}>
 			<BrowserRouter basename={basename}>
 				<ScrollToTop>
 					<Navbar />
 					<Routes>
 						<Route path="/" element={<Home />} />
-						<Route path="/demo" element={<Demo />} />
-						<Route path="/single/:theid" element={<Single />} />
 						<Route path="/personDetail/:id" element={<PersonDetail />} />
 						<Route path="/planetDetail/:id" element={<PlanetDetail />} />
 						<Route path="/vehicleDetail/:id" element={<VehicleDetail />} />

@@ -1,19 +1,6 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
-		store: {
-			demo: [
-				{
-					title: "FIRST",
-					background: "white",
-					initial: "white"
-				},
-				{
-					title: "SECOND",
-					background: "white",
-					initial: "white"
-				}
-			]
-		},
+		store: {},
 		actions: {
 			getPeople: async () => {
 				const people = localStorage.getItem("people")
