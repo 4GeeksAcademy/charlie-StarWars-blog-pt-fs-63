@@ -6,10 +6,13 @@ import { Home } from "./views/home";
 import { Demo } from "./views/demo";
 import { Single } from "./views/single";
 import { PersonDetail } from "./views/personDetail";
+import { PlanetDetail } from "./views/planetDetail";
+import { VehicleDetail } from "./views/vehicleDetail";
 import injectContext from "./store/appContext";
 
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
+import background from "../img/background.gif"
 
 //create your first component
 const Layout = () => {
@@ -18,7 +21,7 @@ const Layout = () => {
 	const basename = process.env.BASENAME || "";
 
 	return (
-		<div>
+		<div style={{ backgroundImage: `url(${background})`, backgroundSize: "contain" }}>
 			<BrowserRouter basename={basename}>
 				<ScrollToTop>
 					<Navbar />
@@ -27,6 +30,8 @@ const Layout = () => {
 						<Route path="/demo" element={<Demo />} />
 						<Route path="/single/:theid" element={<Single />} />
 						<Route path="/personDetail/:id" element={<PersonDetail />} />
+						<Route path="/planetDetail/:id" element={<PlanetDetail />} />
+						<Route path="/vehicleDetail/:id" element={<VehicleDetail />} />
 						<Route path="*" element={<h1>Not found!</h1>} />
 					</Routes>
 					<Footer />

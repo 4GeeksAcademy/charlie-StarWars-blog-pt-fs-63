@@ -8,7 +8,7 @@ import { useNavigate } from "react-router";
 import { GoHeart } from "react-icons/go";
 import { GoHeartFill } from "react-icons/go";
 import { IconContext } from "react-icons";
-
+import { getImageFromName } from "../utils";
 
 export const Home = () => {
 
@@ -16,15 +16,22 @@ export const Home = () => {
 	const { actions, store } = useContext(Context)
 	const peopleArray = Object.values(store.peopleData || {})
 	const planetsArray = Object.values(store.planetsData || {})
-	const vehiclesArray = Object.values(store.vehicles || {})
+	const vehiclesArray = Object.values(store.vehiclesData || {})
 	const favArray = Object.values(store.favorites || {})
 
-	const handleGetDetail = async (id) => {
+	const handlePersonDetail = async (id) => {
 		const personId = await peopleArray.indexOf(peopleArray[id])
 		navigate(`/personDetail/${personId}`)
 	}
+	const handlePlanetDetail = async (id) => {
+		const planetId = await planetsArray.indexOf(planetsArray[id])
+		navigate(`/planetDetail/${planetId}`)
+	}
+	const handleVehicleDetail = async (id) => {
+		const vehicleId = await vehiclesArray.indexOf(vehiclesArray[id])
+		navigate(`/vehicleDetail/${vehicleId}`)
+	}
 
-	console.log(favArray)
 
 	const handleAddFavorite = (entity) => {
 		actions.toFavorites(entity)
@@ -32,29 +39,32 @@ export const Home = () => {
 
 
 	return (
-		<IconContext.Provider value={{ style: { verticalAlign: 'middle' }, color: "magenta", className: "global-class-name" }}>
+		<IconContext.Provider value={{ style: { verticalAlign: 'middle' }, color: "red", className: "global-class-name" }}>
 			<div className="container">
 				<div className="scroll mt-5 d-flex overflow-x-auto">
 					{peopleArray.map((el, index) => (
 						<PersonCard key={index} name={el.name} gender={el.gender} hairColor={el.hair_color}
-							eyeColor={el.eye_color} onClick={() => handleGetDetail(index)}
+							eyeColor={el.eye_color} onClick={() => handlePersonDetail(index)}
 							toFavorites={() => handleAddFavorite(el.name)}
-							heart={favArray.includes(el.name) ? <GoHeartFill className="mb-1" /> : <GoHeart className="mb-1" />} />
+							heart={favArray.includes(el.name) ? <GoHeartFill className="mb-1" /> : <GoHeart className="mb-1" />}
+							image={getImageFromName(el.name)} />
 					))}
 				</div>
 				<div className="scroll mt-5 d-flex overflow-x-auto">
 					{planetsArray.map((el, index) => (
 						<PlanetCard key={index} name={el.name} population={el.population} terrain={el.terrain}
-							toFavorites={() => handleAddFavorite(el.name)}
-							heart={favArray.includes(el.name) ? <GoHeartFill className="mb-1" /> : <GoHeart className="mb-1" />} />
+							toFavorites={() => handleAddFavorite(el.name)} onClick={() => handlePlanetDetail(index)}
+							heart={favArray.includes(el.name) ? <GoHeartFill className="mb-1" /> : <GoHeart className="mb-1" />}
+							image={getImageFromName(el.name)} />
 					))}
 				</div>
 				<div className="scroll mt-5 d-flex overflow-x-auto mb-5">
 					{vehiclesArray.map((el, index) => (
 						<VehicleCard key={index} name={el.name} cost={el.cost_in_credits}
-							Speed={el.max_atmosphering_speed}
-							toFavorites={() => handleAddFavorite(el.name)}
-							heart={favArray.includes(el.name) ? <GoHeartFill className="mb-1" /> : <GoHeart className="mb-1" />} />
+							speed={el.max_atmosphering_speed} toFavorites={() => handleAddFavorite(el.name)}
+							onClick={() => handleVehicleDetail(index)}
+							heart={favArray.includes(el.name) ? <GoHeartFill className="mb-1" /> : <GoHeart className="mb-1" />}
+							image={getImageFromName(el.name)} />
 					))}
 				</div>
 			</div>
