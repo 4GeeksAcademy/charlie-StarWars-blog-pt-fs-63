@@ -23,10 +23,10 @@ const injectContext = PassedComponent => {
 		);
 
 		useEffect(() => {
+			state.actions.getFavorites()
 			state.actions.getPeople()
 			state.actions.getPlanets()
 			state.actions.getVehicles()
-			state.actions.getFavorites()
 
 			/**
 			 * EDIT THIS!

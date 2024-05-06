@@ -9,12 +9,9 @@ export const Navbar = () => {
 
 	const { actions, store } = useContext(Context)
 
-	console.log(store.favorites)
-
-
 	return (
 		<IconContext.Provider value={{ size: "1.2em", style: { verticalAlign: 'middle' }, className: "global-class-name" }}>
-			<nav className="navbar navbar-dark bg-secondary mb-3">
+			<nav className="navbar navbar-dark bg-dark mb-3">
 				<Link to="/">
 					<span className="navbar-brand mb-0 h1">React Boilerplate</span>
 				</Link>
@@ -27,8 +24,8 @@ export const Navbar = () => {
 							{store.favorites?.map((el, index) => (
 								<li key={index} className="dropdown-item">
 									<div className="d-flex justify-content-between">
-										<p className="m-0 align-self-center">{el.name}</p>
-										<button onClick={() => actions.deleteFavorites(el)} className="btn"> <MdDelete className="mb-1" /> </button>
+										<p className="m-0 align-self-center">{el}</p>
+										<button onClick={(e) => { actions.deleteFavorites(el), e.stopPropagation() }} className="btn"> <MdDelete className="mb-1" /> </button>
 									</div>
 								</li>
 							))}
