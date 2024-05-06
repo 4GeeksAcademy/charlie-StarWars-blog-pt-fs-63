@@ -16,15 +16,14 @@ export const PersonDetail = () => {
     const person = peopleArray[id] || ""
     const name = peopleArray[id]?.name
 
-    console.log(person)
 
     return (
         <IconContext.Provider value={{ style: { verticalAlign: 'middle' }, color: "red", className: "global-class-name" }}>
             <div className="container py-2 my-5">
                 <div className="card text-white bg-dark">
                     <div className="g-0 row">
-                        <div className="col-12 col-lg-8">
-                            <img src={getImageFromName(name)} alt="..."
+                        <div className="col-12 col-md-10 col-lg-8">
+                            <img style={{ height: "100%" }} src={getImageFromName(name)} alt="..."
                                 className="img-fluid w-100 rounded-start detail-img" />
                         </div>
                         <div className="col-lg-4 d-flex flex-column p-3">

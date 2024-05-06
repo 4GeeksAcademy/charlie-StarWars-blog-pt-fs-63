@@ -10,7 +10,6 @@ import logo from "../../img/logo.png";
 export const Navbar = () => {
 
 	const { actions, store } = useContext(Context)
-	console.log(store.favorites)
 
 	return (
 		<IconContext.Provider value={{ size: "1.2em", style: { verticalAlign: 'middle' }, className: "global-class-name" }}>
@@ -27,14 +26,14 @@ export const Navbar = () => {
 						Favorites
 					</button>
 					<ul className="dropdown-menu p-0">
-						<hr class="dropdown-divider"></hr>
+						<hr className="dropdown-divider"></hr>
 						{store.favorites?.map((el, index) => (
 							<li key={index} className="dropdown-item list-group-item">
 								<div className="d-flex justify-content-between">
 									<p className="m-0 ms-3 align-self-center">{el}</p>
 									<button onClick={(e) => { actions.deleteFavorites(el), e.stopPropagation() }} className="btn"> <MdDelete className="mb-1" /> </button>
 								</div>
-								<hr class="dropdown-divider"></hr>
+								<hr className="dropdown-divider"></hr>
 							</li>
 						))}
 					</ul>
